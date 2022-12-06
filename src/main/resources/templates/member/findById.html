@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container{
+            max-width: 700px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>회원 ID 찾기</h2>
+    </div>
+    <form action="findId.html" th:action method="post">
+    <h4 class="mb-3">ID 찾기 필요 정보 입력</h4>
+        <div>
+            <label for="email"><h5>Email</h5></label>
+            <input type="text" id="email" name="email" class="form-control" placeholder="Email을 입력하세요">
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">ID 찾기</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Bootstrap Icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <!-- SimpleLightbox plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link th:href="@{/css/style.css}"
+        href="../css/style.css" rel="stylesheet">
+
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+<header id="header" class="d-flex flex-column justify-content-center">
+
+  <nav id="navbar" class="navbar nav-menu">
+    <ul>
+      <li><a href="/realtime/stationEnterBus" class="nav-link scrollto active"><i class="bx bx-stop-circle"></i> <span>정류장 검색</span></a></li>
+    </ul>
+  </nav><!-- .nav-menu -->
+
+</header><!-- End Header -->
+
+<section class="page-section" id="services">
+  <div class="container px-4 px-lg-5" data-aos="fade-up">
+    <h1 class="text-center mt-0">실시간 버스 정보</h1>
+    <hr class="divider"/>
+    <div class="row gx-1 gx-lg-5 m-3">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-4 col-md-6 text-center">
+        <div class="mt-5" style="float: left; width: 40%">
+          <div class="mb-2"><i class="bi-bus-front fs-1 text-info"></i></div>
+          <h2 class="text-black mb-0 fs-3 fw-bold" th:text="${noTransferList.get(1).getRouteNo()}">1111</h2>
+        </div>
+        <div class="mt-5" style="float: left; width: 60%">
+          <div class="mb-2"><i class="bi-shop-window fs-1 text-dark"></i></div>
+          <h2 class="text-primary mb-0 fs-3 fw-bold" th:text="${startStation}">출발 정류장</h2>
+          <h3 class="text-black mb-0 fs-5" th:text="|${noTransferList.get(1).getArriveTimeMin()} 분 ${noTransferList.get(1).getArriveTimeSec()%60}초 뒤에 도착|">77 분 뒤에 도착.</h3>
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <div class="mt-5">
+          <div class="mb-2"><i class="bi-arrow-right fs-1 text-dark"></i></div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 text-center">
+        <div class="mt-5">
+          <div class="mb-2"><i class="bi-house-door fs-1 text-dark"></i></div>
+          <h2 class="text-primary mb-0 fs-3 fw-bold" th:text="${endStation}">도착 정류장</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-1 gx-lg-5 m-3">
+      <div class="m-4">
+      </div>
+    </div>
+
+    <div class="row gx-1 gx-lg-5 m-3">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-4 col-md-6 text-center">
+        <div class="mt-5" style="float: left; width: 40%">
+          <div class="mb-2"><i class="bi-bus-front fs-1 text-success"></i></div>
+          <h3 class="text-danger mb-0 fs-5 fw-bold">탑승 버스</h3>
+          <h2 class="text-black mb-0 fs-3 fw-bold" th:text="${oneTransferList.get(1).getStartBusArriveDto().getRouteNo()}">1111</h2>
+        </div>
+        <div class="mt-5" style="float: left; width: 60%">
+          <div class="mb-2"><i class="bi-shop-window fs-1 text-dark"></i></div>
+          <h2 class="text-primary mb-0 fs-3 fw-bold" th:text="${startStation}">출발 정류장</h2>
+          <h3 class="text-black mb-0 fs-5" th:text="|${oneTransferList.get(1).getStartBusArriveDto().getArriveTimeMin()} 분  ${oneTransferList.get(1).getStartBusArriveDto().getArriveTimeSec()%60} 초 뒤에 도착|">77 분 뒤에 도착합니다.</h3>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 text-center">
+        <div class="mt-5" style="float: left; width: 40%">
+          <div class="mb-2"><i class="bi-bus-front fs-1 text-danger"></i></div>
+          <h3 class="text-danger mb-0 fs-5 fw-bold">환승 버스</h3>
+          <h2 class="text-black mb-0 fs-3 fw-bold" th:text="${oneTransferList.get(1).getEndBusArriveDto().getRouteNo()}">환승 버스 번호</h2>
+        </div>
+        <div class="mt-5">
+          <div class="mb-2"><i class="bi-arrow-right fs-1 text-dark"></i></div>
+          <h2 class="text-success mb-0 fs-3 fw-bold" th:text="${oneTransferList.get(1).getTransferStationName()}">환승 정류장</h2>
+          <h4 class="text-danger mb-0 fs-5 fw-bold">환승</h4>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 text-center">
+        <div class="mt-5">
+          <div class="mb-2"><i class="bi-house-door fs-1 text-dark"></i></div>
+          <h2 class="text-primary mb-0 fs-3 fw-bold" th:text="${endStation}">도착 정류장</h2>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="../vendor/aos/aos.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/glightbox/js/glightbox.min.js"></script>
+<script src="../vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="../vendor/swiper/swiper-bundle.min.js"></script>
+<script src="../vendor/typed.js/typed.min.js"></script>
+<script src="../vendor/waypoints/noframework.waypoints.js"></script>
+<script src="../vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../js/main.js"></script>
+</body>
+</html>

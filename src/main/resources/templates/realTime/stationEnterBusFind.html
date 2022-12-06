@@ -1,0 +1,126 @@
+<!DOCTYPE html"http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/css/style.css}"
+        href="../css/style.css" rel="stylesheet">
+  <title>즐겨찾기</title>
+  <script
+          src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script th:inline="javascript">
+    var real_data = /*[[${stringStation}]]*/'noValue';
+    $(document).ready(function() {
+      $("#startStation").autocomplete({
+        minLength : 1,
+        source : real_data,
+        select : function(e, ui) {
+          $("#nameOutput").text('출발 정류장: ' + ui.item.value);
+          return ui.item.value;
+        }
+      })
+    });
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../vendor/aos/aos.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+<header id="header" class="d-flex flex-column justify-content-center">
+
+  <nav id="navbar" class="navbar nav-menu">
+    <ul>
+      <li><a href="/bookmark/memberBookmark" class="nav-link scrollto active"><i class="bx bx-stop-circle"></i> <span>실시간 버스 검색</span></a></li>
+    </ul>
+  </nav><!-- .nav-menu -->
+
+</header><!-- End Header -->
+<div class="ui-widget">
+  <div class="container overflow-hidden col-6">
+    <div class="py-5 m-5">
+    </div>
+    <div class="py-5 text-center border border-4 border-success rounded m-5">
+      <h2>정류장 및 버스 검색</h2>
+    </div>
+      <div class="row gy-5 m-4">
+        <div class="col-1">
+        </div>
+        <div class="col-8">
+          <input type="text" id="startStation" name="startStation" class="form-control"/>
+        </div>
+        <div class="col-2">
+          <button id="modalButton" class="w-100 btn btn-success btn-lg"style="border-radius:20%" >검색</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title"></h5>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <table id="modal-body-table" width="450" border="1">
+          <th>
+            노선 번호
+          </th>
+          <th>
+            남은 정거장
+          </th>
+          <th>
+            남은 시간
+          </th>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" type="button" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#modalButton').click(function(){
+    $.ajax({
+
+      type: 'GET',
+      url: '/realtime/stationEnterBusModal',
+      data:'stationId=' + $('#startStation').val(),
+      dataType: 'json',
+      success: function(list) {
+
+        // ** 자바스크립트 forEach, 제이쿼리 each
+        $(list).each(function(index, item) {
+          $('#modal-body-table').append('<tr>'+'<td>'+ item.routeNo +'</td>' + '<td>' + item.arriveCount +' 정거장' +'</td>' +'<td>' + item.arriveTimeMin +' 분' +'</td>' +'</tr>');
+        });
+        $('#modal-title').append($('#startStation').val());
+
+        $('#testModal').modal("show");
+
+      },
+      error: function(a, b, c) {
+        console.log(a, b, c);
+      }
+
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/bootstrap.js"></script>
+
+</body>
+</html>

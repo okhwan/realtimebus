@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container{
+            max-width: 700px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>회원 정보</h2>
+    </div>
+    <div>
+        <label for="id"><h5>ID</h5></label>
+        <input type="text" id="id" name="id" class="form-control"
+               value="1" th:value="${member.id}" readonly>
+    </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/member/mainLogin}'|">메인화면 가기</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/member/findPw}'|">비밀번호 찾기</button>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

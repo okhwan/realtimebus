@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container{
+            max-width: 700px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>회원 정보</h2>
+    </div>
+
+    <h2 th:if="${param.status}" th:text="'회원 저장 완료'"></h2>
+        <div>
+            <label for="id"><h5>ID</h5></label>
+            <input type="text" id="id" name="id" class="form-control"
+                   value="1" th:value="${member.id}" readonly>
+        </div>
+        <div>
+            <label for="memberPw"><h5>PassWord</h5></label>
+            <input type="text" id="memberPw" name="memberPw" class="form-control"
+                   value="1" th:value="${member.pw}" readonly>
+        </div>
+        <div>
+            <label for="memberName"><h5>Name</h5></label>
+            <input type="text" id="memberName" name="memberName" class="form-control"
+                   value="1" th:value="${member.name}" readonly>
+        </div>
+        <div>
+            <label for="memberPhone"><h5>Phone</h5></label>
+            <input type="text" id="memberPhone" name="memberPhone" class="form-control"
+                   value="1" th:value="${member.phone}" readonly>
+        </div>
+        <div>
+            <label for="memberEmail"><h5>email</h5></label>
+            <input type="text" id="memberEmail" name="memberEmail" class="form-control"
+                   value="1" th:value="${member.email}" readonly>
+        </div>
+        <div>
+            <label for="memberAddress"><h5>Address</h5></label>
+            <input type="text" id="memberAddress" name="memberAddress" class="form-control"
+                   value="1" th:value="${member.address}" readonly>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg"
+                onclick="location.href='main.html'"
+                th:onclick="|location.href='@{/member/mainLogin}'|">메인화면 가기</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+</html>
